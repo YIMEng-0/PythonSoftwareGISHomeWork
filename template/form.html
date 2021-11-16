@@ -1,0 +1,226 @@
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>多角度光谱仪</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <style>
+        .J-page-title {
+            height: 30px;
+            line-height: 30px;
+            padding: 20 0 20 100;
+            background: #ffffff;
+            font-size: 28px;
+            font-family: cursive;
+            color: #1f87f0;
+            box-shadow: 0 2px 8px #f0f1f2;
+            font-weight: 600;
+            position: fixed;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .div_content {
+            width: 600px;
+            padding: 115px 20px 20px 100px;
+            margin: 0 auto;
+        }
+
+        .J-block-title {
+            margin: 46px 0 30px;
+        }
+
+        .J-modity-input {
+            margin-left: 15px;
+            width: 200px;
+        }
+
+        .J-modity-div {
+            display: flow-root !important;
+        }
+
+        .J-range {
+            margin-top: 5px;
+        }
+
+        .J-radio {
+            margin-right: 56px;
+        }
+
+        .J-radio-input {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+
+<body style="position: relative;">
+<div class="J-page-title">
+    <p>多角度光谱仪</p>
+</div>
+
+<div class="div_content">
+    <form class="uk-form-horizontal" action="/template" method="post">
+        <p class="uk-heading-line uk-text-center"><span>光谱仪参数</span></p>
+        <div class="uk-margin">
+            <label class="uk-form-label">光谱仪编号</label>
+            <div class="uk-form-controls" style="padding-top: 7px;">
+                <span name="spectrum_id">{{ config.spectrum_id }}</span>
+                <input class="uk-input" type="hidden" name="spectrum_id" value={{ config.spectrum_id }}>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label">工作模式(是否联网)</label>
+            <div class="uk-form-controls" style="padding-top: 5px;">
+                {% if config.net_mode=='True' %}
+                    <label class="J-radio"><input class="uk-radio J-radio-input" type="radio" name="net_mode"
+                                                  value="True" checked>Yes</label>
+                    <label><input class="uk-radio J-radio-input" type="radio" name="net_mode" value="False">No</label>
+                {% else %}
+                    <label class="J-radio"><input class="uk-radio J-radio-input" type="radio" name="net_mode"
+                                                  value="True">Yes</label>
+                    <label><input class="uk-radio J-radio-input" type="radio" name="net_mode" value="False"
+                                  checked>No</label>
+                {% endif %}
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_acq_cycle">测量频率</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_acq_cycle" type="number" name="acq_cycle"
+                       value={{ config.acq_cycle }}>
+                （min）
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_start_hour">开始时间</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_start_hour" type="time" name="start_hour"
+                       value={{ config.start_hour }}:00>
+                <!-- <span style="font-size: 12px;">（硬件启动时间只取小时）</span> -->
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_end_hour">结束时间</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_end_hour" type="time" name="end_hour"
+                       value={{ config.end_hour }}:00>
+            </div>
+        </div>
+        <!-- <div class="uk-margin">
+          <label class="uk-form-label" for="form_run_mode">运行模式</label>
+          <div class="uk-form-controls">
+            <label class="J-radio"><input class="uk-radio J-radio-input" type="radio" name="radio2" checked>手动</label>
+            <label><input class="uk-radio J-radio-input" type="radio" name="radio2">自动</label>
+          </div>
+        </div> -->
+
+        <p class="uk-heading-line uk-text-center J-block-title"><span>设备参数</span></p>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_optical_fiber">光纤个数</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_optical_fiber" type="number" name="optical_fiber"
+                       min=0 max=8 value={{ config.optical_fiber }}>
+            </div>
+        </div>
+        <div class="uk-margin J-modity-div">
+            <label class="uk-form-label" for="form_target_light">光强强度</label>
+            <div class="uk-form-controls J-range">
+                <input class="uk-range uk-form-width-medium" id="form_target_light" type="range" name="target_light"
+                       min="0" max="100000" step="100" value={{ config.target_light }} onchange="target_light_change()">
+                <span id="target_light_label" style="margin-left: 10px;">{{ config.target_light }}</span>
+            </div>
+        </div>
+        <div class="uk-margin J-modity-div">
+            <label class="uk-form-label" for="form_weak_light">弱光强度</label>
+            <div class="uk-form-controls J-range">
+                <input class="uk-range uk-form-width-medium" id="form_weak_light" type="range" name="weak_light"
+                       min="0" max="1000" step="100" value={{ config.weak_light }} onchange="weak_light_change()">
+                <span id="weak_light_label" style="margin-left: 10px;">{{ config.weak_light }}</span>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_init_time">计分时间</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_init_time" name="init_time"
+                       type="number" min=0 value={{ config.init_time }}>
+                （ms）
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_count_per_spectral">光谱测量次数</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_count_per_spectral" name="count_per_spectral"
+                       type="number" min=1 value={{ config.count_per_spectral }}>
+            </div>
+        </div>
+
+        <p class="uk-heading-line uk-text-center J-block-title"><span>FTP设置</span></p>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_ftp_host">IP地址</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_ftp_host" type="text" name="ftp_host"
+                       value={{ config.ftp_host }}>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_ftp_port">端口</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_ftp_port" name="ftp_port" type="text"
+                       value={{ config.ftp_port }}>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_ftp_usrname">用户名</label>
+            <div class="uk-inline J-modity-input">
+                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
+                <input class="uk-input" type="text" id="form_ftp_usrname" name="ftp_usrname"
+                       value={{ config.ftp_usrname }}>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_ftp_pwd">密码</label>
+            <div class="uk-inline J-modity-input">
+                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                <input class="uk-input" type="password" id="form_ftp_pwd" name="ftp_pwd" value={{ config.ftp_pwd }}>
+            </div>
+        </div>
+        <p class="uk-heading-line uk-text-center J-block-title"><span>服务器设置</span></p>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_server_ip">IP地址</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_server_ip" type="text" name="server_ip"
+                       value={{ config.server_ip }}>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form_server_port">端口</label>
+            <div class="uk-form-controls">
+                <input class="uk-input uk-form-width-medium" id="form_server_port" type="text" name="server_port"
+                       value={{ config.server_port }}>
+            </div>
+        </div>
+        <p uk-margin style="margin: 45px 0 30px;">
+            <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit">确定</button>
+        </p>
+
+
+    </form>
+    <script>
+        function target_light_change() {
+            value = document.getElementById("form_target_light").value;
+            console.log(value);
+            document.getElementById("target_light_label").innerHTML = value;
+        }
+
+        function weak_light_change() {
+            value = document.getElementById("form_weak_light").value;
+            document.getElementById("weak_light_label").innerHTML = value;
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>光谱曲线绘制</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <style>
+        .J-page-title {
+            height: 30px;
+            line-height: 30px;
+            padding: 20px 0px 20px 100px;
+            background: #ffffff;
+            font-size: 28px;
+            font-family: cursive;
+            color: #1f87f0;
+            box-shadow: 0 2px 8px #f0f1f2;
+            font-weight: 600;
+            position: fixed;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .div_content {
+            width: 620px;
+            height: 320px;
+            margin: 0 auto;
+        }
+
+        .DrawSpectrograph {
+
+        }
+
+        .J-block-title {
+            margin: 46px 0 30px;
+        }
+
+        .J-modity-input {
+            margin-left: 15px;
+            width: 200px;
+        }
+
+        .J-modity-div {
+            display: flow-root !important;
+        }
+
+        .J-range {
+            margin-top: 5px;
+        }
+
+        .J-radio {
+            margin-right: 56px;
+        }
+
+        .J-radio-input {
+            margin-right: 6px;
+        }
+
+        .div_content_left {
+            padding-bottom: 260px;
+        }
+
+        .js-upload {
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="div_content">
+    <div class="js-upload uk-placeholder uk-text-center">
+        <span uk-icon="icon: cloud-upload"></span>
+        <span class="uk-text-middle">Attach binaries by dropping them here or</span>
+        <div uk-form-custom>
+            <input type="file" multiple>
+            <span class="uk-link">selecting one</span>
+        </div>
+    </div>
+    <hr class="uk-divider-icon">
+    <div></div>
+
+
+    <div class="uk-inline">
+        <button class="uk-button uk-button-default" type="button">======== 绘  制  光  谱  曲  线========</button>
+        <div uk-dropdown>根据上传的文件绘制光谱曲线
+        </div>
+    </div>
+
+    <div class="uk-inline">
+        <button class="uk-button uk-button-default" type="button">======== 导  出  光  谱  曲  线========</button>
+        <div uk-dropdown>绘制成功，将绘制好的光谱曲线导出
+        </div>
+
+    </div>
+
+    <div>
+        <img src="2.jpeg" width="620" height="500" />
+    </div>
+
+    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
+    <script>
+        var bar = document.getElementById('js-progressbar');
+
+        UIkit.upload('.js-upload', {
+
+            url: '',
+            multiple: true,
+
+            beforeSend: function () {
+                console.log('beforeSend', arguments);
+            },
+            beforeAll: function () {
+                console.log('beforeAll', arguments);
+            },
+            load: function () {
+                console.log('load', arguments);
+            },
+            error: function () {
+                console.log('error', arguments);
+            },
+            complete: function () {
+                console.log('complete', arguments);
+            },
+
+            loadStart: function (e) {
+                console.log('loadStart', arguments);
+
+                bar.removeAttribute('hidden');
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            progress: function (e) {
+                console.log('progress', arguments);
+
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            loadEnd: function (e) {
+                console.log('loadEnd', arguments);
+
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            completeAll: function () {
+                console.log('completeAll', arguments);
+
+                setTimeout(function () {
+                    bar.setAttribute('hidden', 'hidden');
+                }, 1000);
+
+                alert('Upload Completed');
+            }
+
+        });
+
+    </script>
+
+
+</div>
+
+
+</body>
+</html>
