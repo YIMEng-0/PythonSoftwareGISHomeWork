@@ -85,6 +85,14 @@ def tem():
     config['end_hour'] = '%02d' % int(config['end_hour'])
     return template('template/光谱曲线绘制.html', config=config)
 
+@route('/template/光谱仪定标')
+def tem():
+    # writeIni()
+    config = readIni('./static/Param.ini')
+    config['start_hour'] = '%02d' % int(config['start_hour'])
+    config['end_hour'] = '%02d' % int(config['end_hour'])
+    return template('template/光谱仪定标.html', config=config)
+
 
 @route('/template', method='POST')
 def tem():
