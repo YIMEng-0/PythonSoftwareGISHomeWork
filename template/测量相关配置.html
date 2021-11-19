@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>光谱曲线绘制</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+        <script src="../static/js/uikit.min.js"></script>
+        <script src="../static/js/uikit-icons.min.js"></script>
+        <style>
+            .J-page-title {
+                height: 30px;
+                line-height: 30px;
+                padding: 20px 0px 20px 100px;
+                background: #ffffff;
+                font-size: 28px;
+                font-family: cursive;
+                color: #1f87f0;
+                box-shadow: 0 2px 8px #f0f1f2;
+                font-weight: 600;
+                position: fixed;
+                width: 100%;
+                z-index: 2;
+            }
+
+            .div_content {
+                width: 620px;
+                height: 320px;
+                margin: 0 auto;
+            }
+
+            .DrawSpectrograph {
+
+            }
+
+            .J-block-title {
+                margin: 46px 0 30px;
+            }
+
+            .J-modity-input {
+                margin-left: 15px;
+                width: 200px;
+            }
+
+            .J-modity-div {
+                display: flow-root !important;
+            }
+
+            .J-range {
+                margin-top: 5px;
+            }
+
+            .J-radio {
+                margin-right: 56px;
+            }
+
+            .J-radio-input {
+                margin-right: 6px;
+            }
+
+            .div_content_left {
+                padding-bottom: 260px;
+            }
+
+            .js-upload {
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="J-page-title">
+            <p>测量相关参数配置</p>
+        </div>
+
+        <div class="div_content">
+            <p class="uk-heading-line uk-text-center J-block-title"><span>欢迎使用此测量小程序</span></p>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>欢迎使用此测量小程序</span></p>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>参数配置</span></p>
+            <div style="width:100%;text-align:center">
+                <form class="form-inline" style="font-size: 20px">
+                    <div class="form-group">
+                        <label for="exampleInputName2">定标次数 :</label>
+                        <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
+                               placeholder="只能输入数字(如 1 2 3)">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName2">测量次数 :</label>
+                        <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
+                               placeholder="只能输入数字(如 1 2 3)">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName2">光纤编号 :</label>
+                        <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
+                               placeholder="只能输入数字(如 1 2 3)">
+                    </div>
+                </form>
+            </div>
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>文件保存路径选择</span></p>
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">保存文件路径（单击蓝色 Save Path）</span>
+                <div uk-form-custom>
+                    <input type="file" multiple>
+                    <span class="uk-link">Save Path</span>
+                </div>
+            </div>
+
+            <!-- 进行文件上传的控制代码 -->
+            <script>
+                var bar = document.getElementById('js-progressbar');
+
+                UIkit.upload('.js-upload', {
+
+                    url: '',
+                    multiple: true,
+
+                    beforeSend: function () {
+                        console.log('beforeSend', arguments);
+                    },
+                    beforeAll: function () {
+                        console.log('beforeAll', arguments);
+                    },
+                    load: function () {
+                        console.log('load', arguments);
+                    },
+                    error: function () {
+                        console.log('error', arguments);
+                    },
+                    complete: function () {
+                        console.log('complete', arguments);
+                    },
+
+                    loadStart: function (e) {
+                        console.log('loadStart', arguments);
+
+                        bar.removeAttribute('hidden');
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
+
+                    progress: function (e) {
+                        console.log('progress', arguments);
+
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
+
+                    loadEnd: function (e) {
+                        console.log('loadEnd', arguments);
+
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
+
+                    completeAll: function () {
+                        console.log('completeAll', arguments);
+
+                        setTimeout(function () {
+                            bar.setAttribute('hidden', 'hidden');
+                        }, 1000);
+
+                        alert('Upload Completed');
+                    }
+
+                });
+            </script>
+
+
+            <!-- 设置大的开始测量的按钮 -->
+            <p uk-margin style="margin: 45px 0 30px;">
+                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit">开始测量
+                </button>
+            </p>
+
+            <p class=" uk-heading-line uk-text-center J-block-title CSS5-left
+                "><span>定标参数计算</span></p>
+            <div class="uk-align-center">
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">==计算定标参数==</button>
+                    <div uk-dropdown>计算定标参数
+                    </div>
+                </div>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">==保存并且完成定标==</button>
+                    <div uk-dropdown>保存并完成定标
+                    </div>
+                </div>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">==保存并且完成定标==</button>
+                    <div uk-dropdown>保存并且完成定标
+                    </div>
+                </div>
+            </div>
+
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>图像绘制</span></p>
+            <div>
+                <img src="2.jpeg" style="height: 420px;width: 620px">
+            </div>
+
+            <div>
+                <span style="float: left">
+                    <button class="uk-button uk-button-default" type="button">光强合适 保存文件</button>
+                    <div uk-dropdown>根据上传的文件绘制光谱曲线
+                    </div>
+                </span>
+
+                <span style="float: right">
+                <button class="uk-button uk-button-default" type="button">光强过高 请调整</button>
+                <div uk-dropdown>绘制成功，将绘制好的光谱曲线导出
+                </div>
+                </span>
+            </div>
+
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>感谢使用</span></p>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>email:123456@163.com   CUGB</span></p>
+
+        </div>
+    </body>
+</html>
