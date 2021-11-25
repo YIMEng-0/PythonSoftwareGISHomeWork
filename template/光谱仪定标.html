@@ -1,113 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>光谱仪定标</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
-    <script src="../static/js/uikit.min.js"></script>
-    <script src="../static/js/uikit-icons.min.js"></script>
-    <style>
-        .J-page-title {
-            height: 30px;
-            line-height: 30px;
-            padding: 20px 0px 20px 100px;
-            background: #ffffff;
-            font-size: 28px;
-            font-family: cursive;
-            color: #1f87f0;
-            box-shadow: 0 2px 8px #f0f1f2;
-            font-weight: 600;
-            position: fixed;
-            width: 100%;
-            z-index: 2;
-        }
+    <head>
+        <meta charset="UTF-8"/>
+        <title>光谱仪定标</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+        <script src="../static/js/uikit.min.js"></script>
+        <script src="../static/js/uikit-icons.min.js"></script>
+        <style>
+            .J-page-title {
+                height: 30px;
+                line-height: 30px;
+                padding: 20px 0px 20px 100px;
+                background: #ffffff;
+                font-size: 28px;
+                font-family: cursive;
+                color: #1f87f0;
+                box-shadow: 0 2px 8px #f0f1f2;
+                font-weight: 600;
+                position: fixed;
+                width: 100%;
+                z-index: 2;
+            }
 
-        .div_content {
-            width: 600px;
-            padding: 20px 20px 20px 100px;
-            margin: 0 auto;
-        }
+            .div_content {
+                width: 600px;
+                padding: 20px 20px 20px 100px;
+                margin: 0 auto;
+            }
 
-        .J-block-title {
-            margin: 46px 0 30px;
-        }
+            .J-block-title {
+                margin: 46px 0 30px;
+            }
 
-        .J-modity-input {
-            margin-left: 15px;
-            width: 200px;
-        }
+            .J-modity-input {
+                margin-left: 15px;
+                width: 200px;
+            }
 
-        .J-modity-div {
-            display: flow-root !important;
-        }
+            .J-modity-div {
+                display: flow-root !important;
+            }
 
-        .J-range {
-            margin-top: 5px;
-        }
+            .J-range {
+                margin-top: 5px;
+            }
 
-        .J-radio {
-            margin-right: 56px;
-        }
+            .J-radio {
+                margin-right: 56px;
+            }
 
-        .J-radio-input {
-            margin-right: 6px;
-        }
-    </style>
-</head>
-<body>
-<div class="J-page-title">
-    <p>光谱仪定标</p>
-</div>
-
-<div class="div_content">
-    <div uk-alert>
-        <a class="uk-alert-close" uk-close></a>
-        <h3>Welcome!</h3>
-        <p>欢迎使用在线光谱仪定标小程序！</p>
-    </div>
-
-
-    <p class="uk-heading-line uk-text-center J-block-title"><span>文件上传</span></p>
-    <div class="js-upload uk-placeholder uk-text-center">
-        <span uk-icon="icon: cloud-upload"></span>
-        <span class="uk-text-middle">请选择定标配置文件</span>
-        <div uk-form-custom>
-            <input type="file" multiple>
-            <span class="uk-link">selecting one</span>
+            .J-radio-input {
+                margin-right: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="J-page-title">
+            <p>光谱仪定标</p>
         </div>
-    </div>
 
-    <div class="js-upload uk-placeholder uk-text-center">
-        <span uk-icon="icon: cloud-upload"></span>
-        <span class="uk-text-middle">请选择标准光谱数据文件</span>
-        <div uk-form-custom>
-            <input type="file" multiple>
-            <span class="uk-link">selecting one</span>
-        </div>
-    </div>
-
-    <div class="js-upload uk-placeholder uk-text-center">
-        <span uk-icon="icon: cloud-upload"></span>
-        <span class="uk-text-middle">请选择标准光源观测数据文件（可以多选）</span>
-        <div uk-form-custom>
-            <input type="file" multiple>
-            <span class="uk-link">selecting one</span>
-        </div>
-    </div>
+        <div class="div_content">
+            <div uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <h3>Welcome!</h3>
+                <p>欢迎使用在线光谱仪定标小程序！</p>
+            </div>
 
 
-    <p class="uk-heading-line uk-text-center J-block-title"><span>相关操作</span></p>
-    <!-- 创建的同一行的 span 创建四个按钮即可 -->
-    <span>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>文件上传</span></p>
+
+            <!--
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">请选择定标配置文件</span>
+                <div uk-form-custom>
+                    <input type="file" multiple>
+                    <span class="uk-link">selecting one</span>
+                </div>
+            </div>
+
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">请选择标准光谱数据文件</span>
+                <div uk-form-custom>
+                    <input type="file" multiple>
+                    <span class="uk-link">selecting one</span>
+                </div>
+            </div>
+            -->
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">请选择标准光源观测数据文件（可以多选）</span>
+                <div uk-form-custom>
+                    <input type="file" multiple>
+                    <span class="uk-link">selecting one</span>
+                </div>
+            </div>
+
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>相关操作</span></p>
+            <!-- 创建的同一行的 span 创建四个按钮即可 -->
+            <span>
         <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">绘制光谱曲线</button>
-        <div uk-dropdown>根据上传的文件绘制光谱曲线
+        <button class="uk-button uk-button-default" type="button">光谱仪定标</button>
+        <div uk-dropdown>根据上传的文件进行光谱仪定标
         </div>
         </div>
     </span>
 
-    <span>
+            <span>
         <div class="uk-inline">
         <button class="uk-button uk-button-default" type="button">清空整个界面</button>
         <div uk-dropdown>将绘制的光谱曲线清空
@@ -115,7 +117,7 @@
         </div>
     </span>
 
-    <span>
+            <span>
         <div class="uk-inline">
         <button class="uk-button uk-button-default" type="button">计算相关参数</button>
         <div uk-dropdown>计算相关参数
@@ -123,82 +125,82 @@
         </div>
     </span>
 
-    <span>
+            <span>
         <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">保存计算结果</button>
-        <div uk-dropdown>保存相关参数
+        <button class="uk-button uk-button-default" type="button">保存结果图片</button>
+        <div uk-dropdown>保存前端展示的图片
         </div>
         </div>
     </span>
 
-    <p class="uk-heading-line uk-text-center J-block-title"><span>各个光路的光谱曲线</span></p>
-    <div>
-        <img src="2.jpeg" width="620" height="500"/>
-    </div>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>各个光路的光谱曲线</span></p>
+            <div>
+                <img src="../Calculation/1-High%20Light%20Intensity.png" width="620" height="500"/>
+            </div>
 
-    <p class="uk-heading-line uk-text-center J-block-title"><span>状态输出框</span></p>
+            <p class="uk-heading-line uk-text-center J-block-title"><span>状态输出框</span></p>
 
 
-</div>
+        </div>
 
-<!-- 进行文件上传的控制代码 -->
-<script>
-    var bar = document.getElementById('js-progressbar');
+        <!-- 进行文件上传的控制代码 -->
+        <script>
+            var bar = document.getElementById('js-progressbar');
 
-    UIkit.upload('.js-upload', {
+            UIkit.upload('.js-upload', {
 
-        url: '',
-        multiple: true,
+                url: '',
+                multiple: true,
 
-        beforeSend: function () {
-            console.log('beforeSend', arguments);
-        },
-        beforeAll: function () {
-            console.log('beforeAll', arguments);
-        },
-        load: function () {
-            console.log('load', arguments);
-        },
-        error: function () {
-            console.log('error', arguments);
-        },
-        complete: function () {
-            console.log('complete', arguments);
-        },
+                beforeSend: function () {
+                    console.log('beforeSend', arguments);
+                },
+                beforeAll: function () {
+                    console.log('beforeAll', arguments);
+                },
+                load: function () {
+                    console.log('load', arguments);
+                },
+                error: function () {
+                    console.log('error', arguments);
+                },
+                complete: function () {
+                    console.log('complete', arguments);
+                },
 
-        loadStart: function (e) {
-            console.log('loadStart', arguments);
+                loadStart: function (e) {
+                    console.log('loadStart', arguments);
 
-            bar.removeAttribute('hidden');
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
+                    bar.removeAttribute('hidden');
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
 
-        progress: function (e) {
-            console.log('progress', arguments);
+                progress: function (e) {
+                    console.log('progress', arguments);
 
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
 
-        loadEnd: function (e) {
-            console.log('loadEnd', arguments);
+                loadEnd: function (e) {
+                    console.log('loadEnd', arguments);
 
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
 
-        completeAll: function () {
-            console.log('completeAll', arguments);
+                completeAll: function () {
+                    console.log('completeAll', arguments);
 
-            setTimeout(function () {
-                bar.setAttribute('hidden', 'hidden');
-            }, 1000);
+                    setTimeout(function () {
+                        bar.setAttribute('hidden', 'hidden');
+                    }, 1000);
 
-            alert('Upload Completed');
-        }
+                    alert('Upload Completed');
+                }
 
-    });
-</script>
-</body>
+            });
+        </script>
+    </body>
 </html>

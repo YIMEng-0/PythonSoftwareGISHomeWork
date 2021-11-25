@@ -3,6 +3,8 @@ import Calibration
 High = []
 Mid = []
 Low = []
+
+# 前端读取到的文件可以保存在一个文件夹下面就好了，这样下面的代码就不用修改了
 path = '../Standard_Spectral_Data_1114/'
 for i in range(1, 8):
     filename_high = path + 'Spectrum_' + str(i) + "_0_1.sps"
