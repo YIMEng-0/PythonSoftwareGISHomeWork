@@ -80,10 +80,12 @@
             <div class="js-upload uk-placeholder uk-text-center">
                 <span uk-icon="icon: cloud-upload"></span>
                 <span class="uk-text-middle">选择光谱曲线文件（单击蓝色 selecting one）</span>
-                <div uk-form-custom>
-                    <input type="file" multiple>
-                    <span class="uk-link">selecting data</span>
-                </div>
+                <form action='http://localhost:8088/uploadfile' enctype="multipart/form-data" type='post'>
+                    <input type='file'>
+                    <input type='hidden' name='userid'>
+                    <input type='hidden' name='signature'>
+                    <button>提交</button>
+                </form>
             </div>
 
 
@@ -143,7 +145,6 @@
             </div>
         </div>
     </span>
-
 
             <div>
                 <img src="2.jpeg" width="620" height="500"/>

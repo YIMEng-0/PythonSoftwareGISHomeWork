@@ -90,48 +90,63 @@
             </div>
             -->
             <div class="js-upload uk-placeholder uk-text-center">
+                <!--
                 <span uk-icon="icon: cloud-upload"></span>
-                <span class="uk-text-middle">请选择标准光源观测数据文件（可以多选）</span>
+                <span class="uk-text-middle">打开参考通道</span>
                 <div uk-form-custom>
                     <input type="file" multiple>
                     <span class="uk-link">selecting one</span>
                 </div>
+                -->
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <p>打开参考通道</p>
+                    <input type='text' name='textfield' id='textfield' class='txt'/>
+                    <input type="file" name="fileField" class="file" id="fileField" size="28"
+                           onchange="document.getElementById('textfield').value=this.value"/>
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit"
+                            style="margin-top: 15px;">确定
+                    </button>
+                </form>
+
+            </div>
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
+
+            <div class="js-upload uk-placeholder uk-text-center">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <p>打开待定通道</p>
+                    <input type='text' name='textfield' id='textfield' class='txt'/>
+                    <input type="file" name="fileField" class="file" id="fileField" size="28"
+                           onchange="document.getElementById('textfield').value=this.value"/>
+                    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit"
+                            style="margin-top: 15px;">确定
+                    </button>
+                </form>
             </div>
 
+            <div class="form-group">
+                <label for="exampleInputName2">标定轮次 :</label>
+                <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
+                       placeholder="">
+            </div>
 
             <p class="uk-heading-line uk-text-center J-block-title"><span>相关操作</span></p>
             <!-- 创建的同一行的 span 创建四个按钮即可 -->
             <span>
-        <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">光谱仪定标</button>
-        <div uk-dropdown>根据上传的文件进行光谱仪定标
-        </div>
-        </div>
-    </span>
+            <div class="uk-inline">
+                <button class="uk-button uk-button-default" type="button">光谱仪定标</button>
+                <div uk-dropdown>根据上传的文件进行光谱仪定标
+                </div>
+            </div>
+            </span>
 
             <span>
-        <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">清空整个界面</button>
-        <div uk-dropdown>将绘制的光谱曲线清空
-        </div>
-        </div>
-    </span>
-
-            <span>
-        <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">计算相关参数</button>
-        <div uk-dropdown>计算相关参数
-        </div>
-        </div>
-    </span>
-
-            <span>
-        <div class="uk-inline">
-        <button class="uk-button uk-button-default" type="button">保存结果图片</button>
-        <div uk-dropdown>保存前端展示的图片
-        </div>
-        </div>
-    </span>
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">检查</button>
+                    <div uk-dropdown>保存前端展示的图片
+                    </div>
+                </div>
+            </span>
 
             <p class="uk-heading-line uk-text-center J-block-title"><span>各个光路的光谱曲线</span></p>
             <div>
@@ -144,63 +159,11 @@
         </div>
 
         <!-- 进行文件上传的控制代码 -->
-        <script>
-            var bar = document.getElementById('js-progressbar');
-
-            UIkit.upload('.js-upload', {
-
-                url: '',
-                multiple: true,
-
-                beforeSend: function () {
-                    console.log('beforeSend', arguments);
-                },
-                beforeAll: function () {
-                    console.log('beforeAll', arguments);
-                },
-                load: function () {
-                    console.log('load', arguments);
-                },
-                error: function () {
-                    console.log('error', arguments);
-                },
-                complete: function () {
-                    console.log('complete', arguments);
-                },
-
-                loadStart: function (e) {
-                    console.log('loadStart', arguments);
-
-                    bar.removeAttribute('hidden');
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                },
-
-                progress: function (e) {
-                    console.log('progress', arguments);
-
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                },
-
-                loadEnd: function (e) {
-                    console.log('loadEnd', arguments);
-
-                    bar.max = e.total;
-                    bar.value = e.loaded;
-                },
-
-                completeAll: function () {
-                    console.log('completeAll', arguments);
-
-                    setTimeout(function () {
-                        bar.setAttribute('hidden', 'hidden');
-                    }, 1000);
-
-                    alert('Upload Completed');
-                }
-
-            });
+        <script type="text/javascript">
+            function test(e) {
+                document.getElementById('upload_file').value = e.value
+                console.log(e)
+            }
         </script>
     </body>
 </html>

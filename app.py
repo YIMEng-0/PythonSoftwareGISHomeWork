@@ -7,10 +7,9 @@ import configparser
 """
 一个bottle程序分为四部分
 1.import bottle
-2.@route('/index')定义一个访问路径，这样从浏览器访问时就能
+2.@route('/index')定义一个访问路径，这样从浏览器访问时就能访问自己定义的路径
 3.定义一个与第2步route相应的处理函数，系统在看到@route标记后会自动调用其后边的这个函数。
 4.调用run()函数。
-
 
 
 from bottle import route, run
@@ -26,6 +25,31 @@ run(host='localhost', port=8080)
 @route('/hello')
 def index():
     return template('template/test_vue.html')
+
+@route('/uploadfile')
+def upload():
+
+    print("000000")
+    return template('template/form.html')
+
+
+# 重新构建的上传代码块
+@route('/', method='POST')
+def index():
+    # fname = request.files.get('upload_file')
+    # fname = request.forms.get('textfield')
+    fname = request.files['fileField']
+    if fname:
+        # t = time.strftime('%Y%m%d%H%M%S')
+        new_fname = r'./Standard_Spectral_Data/' + fname.filename
+        fname.save(new_fname)  #保存文件到指定路径
+
+        # return '<img src=%s>' %  new_fname # 返回到指定的界面，目前不需要返回到加载的图片的位置
+        print("文件上成功！")
+        return template('template/光谱仪定标.html', config=fname)
+    else:
+        return template('template/光谱仪定标.html', config=fname)
+
 
 
 @route('/hello/<name>')
@@ -94,6 +118,16 @@ def tem():
     return template('template/光谱仪定标.html', config=config)
 
 
+# 测量相关配置.html 的绑定以及打开
+@route('/template/测量相关配置')
+def tem():
+    # writeIni()
+    config = readIni('./static/Param.ini')
+    config['start_hour'] = '%02d' % int(config['start_hour'])
+    config['end_hour'] = '%02d' % int(config['end_hour'])
+    return template('template/测量相关配置.html', config=config)
+
+
 @route('/template', method='POST')
 def tem():
     # paras = {}
@@ -135,6 +169,8 @@ def readIni(path):
             value = cf.get(sec, opt)
             key = opt
             paras[key] = value
+
+
     return paras
 
 
