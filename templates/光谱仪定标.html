@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>光谱仪定标</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+        <script src="../static/js/uikit.min.js"></script>
+        <script src="../static/js/uikit-icons.min.js"></script>
+        <style>
+            .J-page-title {
+                height: 30px;
+                line-height: 30px;
+                padding: 20px 0px 20px 100px;
+                background: #ffffff;
+                font-size: 28px;
+                font-family: cursive;
+                color: #1f87f0;
+                box-shadow: 0 2px 8px #f0f1f2;
+                font-weight: 600;
+                position: fixed;
+                width: 100%;
+                z-index: 2;
+            }
+
+            .div_content {
+                width: 600px;
+                padding: 20px 20px 20px 100px;
+                margin: 0 auto;
+            }
+
+            .J-block-title {
+                margin: 46px 0 30px;
+            }
+
+            .J-modity-input {
+                margin-left: 15px;
+                width: 200px;
+            }
+
+            .J-modity-div {
+                display: flow-root !important;
+            }
+
+            .J-range {
+                margin-top: 5px;
+            }
+
+            .J-radio {
+                margin-right: 56px;
+            }
+
+            .J-radio-input {
+                margin-right: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="J-page-title">
+            <p>光谱仪定标</p>
+        </div>
+
+        <div class="div_content">
+            <div uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <h3>Welcome!</h3>
+                <p>欢迎使用在线光谱仪定标小程序！</p>
+            </div>
+
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>文件上传</span></p>
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">拖动文件 or</span>
+                <div uk-form-custom>
+                    <input type="file" multiple='multiple'>
+                    <span class="uk-link">点击选择标准光谱文件</span>
+                </div>
+                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            </div>
+
+            <div class="js-upload uk-placeholder uk-text-center">
+                <span uk-icon="icon: cloud-upload"></span>
+                <span class="uk-text-middle">拖动文件 or</span>
+                <div uk-form-custom>
+                    <input type="file" multiple='multiple'>
+                    <span class="uk-link">点击选择观测光谱文件</span>
+                </div>
+                <progress id="js-progressbar1" class="uk-progress" value="0" max="100" hidden></progress>
+            </div>
+
+            <div class="form-group" uk-margin style="text-align: center;">
+                <label for="exampleInputName2">标定轮次 :</label>
+                <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
+                       placeholder="">
+            </div>
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>相关操作</span></p>
+            <!-- 创建需要的按钮即可 -->
+            <div class="js-upload uk-placeholder uk-text-center">
+                <p uk-margin style="text-align: center;">
+                <button class="uk-button uk-button-default" id='getCalibration'>光谱仪定标</button>
+                <button class="uk-button uk-button-default" id='check'>检查</button>
+                </p>
+            </div>
+
+
+            <p class="uk-heading-line uk-text-center J-block-title"><span>光谱仪定标结果</span></p>
+            <div>
+                <!-- 在这里传上去后端处理好的图片 -->
+                <img src="../Middle Light Calibration Difference(Numpy - Myself).png"/>
+            </div>
+
+        </div>
+
+        <!--把标准光谱文件传进来-->
+        <script>
+            var bar = document.getElementById('js-progressbar');
+
+            UIkit.upload('.js-upload', {
+
+                url: '/1',
+                multiple: true,
+                name: 'Spectral_Data',
+
+                beforeSend: function () {
+                    console.log('beforeSend', arguments);
+                },
+                beforeAll: function () {
+                    console.log('beforeAll', arguments);
+                },
+                load: function () {
+                    console.log('load', arguments);
+                },
+                error: function () {
+                    console.log('error', arguments);
+                },
+                complete: function () {
+                    console.log('complete', arguments);
+                },
+
+                loadStart: function (e) {
+                    console.log('loadStart', arguments);
+
+                    bar.removeAttribute('hidden');
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                progress: function (e) {
+                    console.log('progress', arguments);
+
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                loadEnd: function (e) {
+                    console.log('loadEnd', arguments);
+
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                completeAll: function () {
+                    console.log('completeAll', arguments);
+
+                    setTimeout(function () {
+                        bar.setAttribute('hidden', 'hidden');
+                    }, 1000);
+
+                    alert('Upload Completed');
+                }
+
+            });
+        </script>
+
+
+        <!--把观测光谱文件传进来-->
+        <script>
+            var btnFLD = document.getElementById("getCalibration");
+            btnFLD.onclick = function () {
+                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                httpRequest.open('POST', 'http://localhost:8088/getCalibration', true); //第二步：打开连接
+                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+                httpRequest.send();//发送请求 将情头体写在send中
+            }
+        </script>
+    </body>
+</html>

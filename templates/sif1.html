@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../static/js/jQuery.js"></script>
+    <script src="../static/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="../static/css/uikit.min.css" />
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <style>
+        .J-page-title {
+            height: 30px;
+            line-height: 30px;
+            padding: 20px 0px 20px 100px;
+            background: #ffffff;
+            font-size: 28px;
+            font-family: cursive;
+            color: #1f87f0;
+            box-shadow: 0 2px 8px #f0f1f2;
+            font-weight: 600;
+            position: fixed;
+            width: 100%;
+            z-index: 2;
+
+        }
+
+        .container {
+            width: 480px;
+            height: 450px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="text-align: center;">
+        <article class="uk-article">
+            <h1 class="uk-article-title"><a class="uk-link-reset" href="">Compute SIF</a></h1>
+            <p class="uk-article-meta">Written by <a href="#">First Group</a> on 26 November 2021.</p>
+        </article>
+
+        <div class="js-upload uk-placeholder uk-text-center" style="width: 400px;height: 120px;; margin: 0 auto;">
+            <span uk-icon="icon: cloud-upload"></span>
+            <span class="uk-text-middle">拖动文件 or</span>
+            <div uk-form-custom>
+                <input type="file" multiple='multiple'>
+                <span class="uk-link">点击选择文件</span>
+            </div>
+
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            <p uk-margin style="text-align: center;">
+                <button class="uk-button uk-button-default" id='computeFLD'>FLD</button>
+                <button class="uk-button uk-button-default" id='computeSFM'>SFM</button>
+                <button class="uk-button uk-button-default" id='clear'>清除</button>
+
+            <div class="uk-inline" style="display:inline-block">
+                <button class="uk-button uk-button-default" type="button">导出</button>
+                <div uk-dropdown>
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-nav-header">选择方式</li>
+                        <li><a href="http://localhost:8088/para/FLD.txt" download="FLD">FLD</a></li>
+                        <li><a href="http://localhost:8088/para/SFM.txt" download="SFM">SFM</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <a class="uk-button uk-button-default" id='export' href="http://localhost:8088/para"
+                download="filename">导出</a> -->
+
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        // 清除按钮
+        var btnClear = document.getElementById("clear");
+        btnClear.onclick = function () {
+
+            myEcharts.setOption(optionDefault)
+        }
+        // FLD
+        var btnFLD = document.getElementById("computeFLD");
+        btnFLD.onclick = function () {
+
+
+            var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+            httpRequest.open('POST', 'http://localhost:8088/getFLD', true); //第二步：打开连接
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+            httpRequest.send();//发送请求 将情头体写在send中
+            /**
+             * 获取数据后的处理程序
+             */
+            httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+                if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                    var json = httpRequest.responseText;//获取到服务端返回的数据
+                    dataWave = JSON.parse(json)
+                    var options = {
+                        xAxis: {
+                            type: 'value'
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+
+                            {
+                                type: 'scatter',
+                                symbolSize: 10,
+                                data: dataWave
+                            }
+                        ]
+                    }
+
+                    myEcharts.setOption(options)
+                }
+            };
+
+        }
+        // SFM
+        var btnFLD = document.getElementById("computeSFM");
+        btnFLD.onclick = function () {
+            var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+            httpRequest.open('POST', 'http://localhost:8088/getSFM', true); //第二步：打开连接
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+            httpRequest.send();//发送请求 将情头体写在send中
+            /**
+             * 获取数据后的处理程序
+             */
+            httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+                if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                    var json = httpRequest.responseText;//获取到服务端返回的数据
+                    dataWave = JSON.parse(json)
+                    var options = {
+                        xAxis: {
+                            type: 'value'
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+
+                            {
+                                type: 'scatter',
+                                symbolSize: 10,
+                                data: dataWave
+                            }
+                        ]
+                    }
+
+
+
+                    myEcharts.setOption(options)
+                }
+            };
+
+        }
+        // export
+
+        var bar = document.getElementById('js-progressbar');
+
+        UIkit.upload('.js-upload', {
+
+            url: '/1',
+            multiple: true,
+            name: 'waveFile',
+
+            beforeSend: function () {
+                console.log('beforeSend', arguments);
+            },
+            beforeAll: function () {
+                console.log('beforeAll', arguments);
+            },
+            load: function () {
+                console.log('load', arguments);
+            },
+            error: function () {
+                console.log('error', arguments);
+            },
+            complete: function () {
+                console.log('complete', arguments);
+            },
+
+            loadStart: function (e) {
+                console.log('loadStart', arguments);
+
+                bar.removeAttribute('hidden');
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            progress: function (e) {
+                console.log('progress', arguments);
+
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            loadEnd: function (e) {
+                console.log('loadEnd', arguments);
+
+                bar.max = e.total;
+                bar.value = e.loaded;
+            },
+
+            completeAll: function () {
+                console.log('completeAll', arguments);
+
+                setTimeout(function () {
+                    bar.setAttribute('hidden', 'hidden');
+                }, 1000);
+
+                alert('Upload Completed');
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>

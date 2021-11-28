@@ -5,7 +5,8 @@ Mid = []
 Low = []
 
 # 前端读取到的文件可以保存在一个文件夹下面就好了，这样下面的代码就不用修改了
-path = '../Standard_Spectral_Data_1114/'
+
+path = 'Spectral_Data/'
 for i in range(1, 8):
     filename_high = path + 'Spectrum_' + str(i) + "_0_1.sps"
     filename_mid = path + 'Spectrum_' + str(i) + "_1.sps"
@@ -25,8 +26,8 @@ my_lamda = 0
 Polynomial_Coefficients = []  # 拟合的多项式系数
 result = []  # 中等光强下，定标后的结果
 
-# 计算结果的导出
-savepath = "../out/"
+# 计算结果的导出文件夹路径的设置
+savepath = "out/"
 for row in range(0, 6):
     temp_args = []
     temp_result = []
@@ -47,7 +48,7 @@ for row in range(0, 6):
 
         # 方法2：自己写的多项式拟合函数
         temp_args1.append(Calibration.ployfit(my_M, my_N, my_y_n, my_x_n, my_lamda))
-        temp_result1.append(Mid[row+1][col] - Calibration.ployval(temp_args[col], Mid[row+1][col]))
+        temp_result1.append(Mid[row+1][col] - Calibration.ployval(temp_args[col], Mid[row + 1][col]))
         # print("自己写的：", temp_args1[col])
         # print("自己写的：", temp_result1[col])
 
@@ -57,7 +58,7 @@ for row in range(0, 6):
 
     Polynomial_Coefficients.append(temp_args)   # 保存的多项式参数：a*x^2 + b*x + c中的a,b,c
     result.append(temp_result)                  # 保存的定标结果
-    Calibration.export_file(Polynomial_Coefficients[row], savepath, "Light_"+str(row+1)+".conf")
+    Calibration.export_file(Polynomial_Coefficients[row], savepath, "Light_" + str(row + 1) + ".conf")
 print("计算结束！")
 
 Calibration.draw_pic(High, "1-High Light Intensity", 1)
@@ -69,3 +70,5 @@ Calibration.draw_pic(diff_high, "2-High Light Difference", 6)
 Calibration.draw_pic(result, "Middle Light Calibration Difference(Numpy - Myself)", 7)
 
 
+# 图片可以保存在其他的路径中
+# 后期进行代码的重构，使得保存图片可以保存在给定的问价夹路径中
