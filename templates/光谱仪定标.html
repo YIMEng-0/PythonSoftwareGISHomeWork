@@ -99,8 +99,8 @@
             <!-- 创建需要的按钮即可 -->
             <div class="js-upload uk-placeholder uk-text-center">
                 <p uk-margin style="text-align: center;">
-                <button class="uk-button uk-button-default" id='getCalibration'>光谱仪定标</button>
-                <button class="uk-button uk-button-default" id='check'>检查</button>
+                    <button class="uk-button uk-button-default" id='getCalibration'>光谱仪定标</button>
+                    <button class="uk-button uk-button-default" id='check'>检查</button>
                 </p>
             </div>
 
@@ -184,6 +184,10 @@
                 httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
                 httpRequest.send();//发送请求 将情头体写在send中
             }
+
+            const commodity_image = document.createElement("img");
+            let imageURL = "/image?skuid=" + r[j]["skuid"];
+            commodity_image.src = imageURL;
         </script>
     </body>
 </html>
