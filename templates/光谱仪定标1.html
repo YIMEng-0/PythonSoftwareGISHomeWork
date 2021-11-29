@@ -102,7 +102,6 @@
                        placeholder="">
             </div>
 
-
             <p uk-margin style="margin: 45px 0 30px;">
                 <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit">确定
                 </button>
@@ -113,12 +112,7 @@
             <div class="js-upload uk-placeholder uk-text-center">
                 <p uk-margin style="text-align: center;">
                     <button class="uk-button uk-button-default" id='getCalibration'>光谱仪定标</button>
-                <div class="uk-inline" style="display:inline-block">
-                    <button class="uk-button uk-button-default" type="button">导出</button>
-                    <div uk-dropdown>
-                        <p><a href="http://localhost:8088/result/out.zip" download="result">导出定标参数</a></p>
-                    </div>
-                </div>
+                    <button class="uk-button uk-button-default" id='check'>检查</button>
                 </p>
             </div>
 
@@ -131,9 +125,16 @@
 
         </div>
 
-        <!--把标准光谱文件传进来,观测的文件一起传进来，后面尽心文件的移动即可-->
+        <!--把标准光谱文件传进来-->
         <script>
             var bar = document.getElementById('js-progressbar');
+            var bar2 = document.getElementById('js-progressbar');
+            if (bar2 == bar) {
+
+            } else {
+
+            }
+
             UIkit.upload('.js-upload', {
 
                 url: '/1',
@@ -191,6 +192,68 @@
             });
         </script>
 
+
+        <!--把观测光谱文件传进来-->
+        <script>
+            var bar1 = document.getElementById('js-progressbar1');
+            UIkit.upload('.js-upload', {
+
+                url: '/2',
+                multiple: true,
+                name: 'Observed_Spectral_Data',
+
+                beforeSend: function () {
+                    console.log('beforeSend', arguments);
+                },
+                beforeAll: function () {
+                    console.log('beforeAll', arguments);
+                },
+                load: function () {
+                    console.log('load', arguments);
+                },
+                error: function () {
+                    console.log('error', arguments);
+                },
+                complete: function () {
+                    console.log('complete', arguments);
+                },
+
+                loadStart: function (e) {
+                    console.log('loadStart', arguments);
+
+                    bar1.removeAttribute('hidden');
+                    bar1.max = e.total;
+                    bar1.value = e.loaded;
+                },
+
+                progress: function (e) {
+                    console.log('progress', arguments);
+
+                    bar1.max = e.total;
+                    bar1.value = e.loaded;
+                },
+
+                loadEnd: function (e) {
+                    console.log('loadEnd', arguments);
+
+                    bar1.max = e.total;
+                    bar1.value = e.loaded;
+                },
+
+                completeAll: function () {
+                    console.log('completeAll', arguments);
+
+                    setTimeout(function () {
+                        bar1.setAttribute('hidden', 'hidden');
+                    }, 1000);
+
+                    alert('Upload Completed');
+                }
+
+            });
+        </script>
+
+
         <script>
             var btnFLD = document.getElementById("getCalibration");
             btnFLD.onclick = function () {
@@ -203,8 +266,6 @@
             const commodity_image = document.createElement("img");
             let imageURL = "/image?skuid=" + r[j]["skuid"];
             commodity_image.src = imageURL;
-        </script>
-
         </script>
     </body>
 </html>

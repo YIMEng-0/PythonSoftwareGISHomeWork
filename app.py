@@ -1,8 +1,10 @@
 import base64
+import zipfile
 
 from bottle import route, run, static_file, template, request
 from bottle import jinja2_view as view, jinja2_template as template
 import os
+import zipFile
 
 from flask import make_response
 
@@ -37,21 +39,23 @@ def backData():
     upload.save(r'./Spectral_Data')
     return 'ok'
 
+# 将观光谱文件上传到另外一个文件夹中
+@route('/2', method='POST')
+def backData():
+    upload = request.files.get('Observed_Spectral_Data')
+    upload.save(r'./Observed_Spectral_Data')
+    return 'ok'
+
 # 这个是和前端的按钮进行的绑定，点击按钮调用后端的 main.py 的脚本文件，进行图片的生成
 @route('/getCalibration', method='POST')
 def getCalibration():
     os.system("python main.py")
 
-# 进行图片文件的上传（目前存在问题，导致上传文件是失败的）
-route("/image", methods = 'GET')
-def sendImage():
-    skuid = request.args.get('skuid')
-    print("1231231233")
-    img_local_path = "Middle Light Calibration Difference(Numpy - Myself).png"
-    img_f = open(img_local_path, 'rb')
-    res = make_response(img_f.read())   # 用flask提供的make_response 方法来自定义自己的response对象
-    res.headers['Content-Type'] = 'image/png'   # 设置response对象的请求头属性'Content-Type'为图片格式
-    img_f.close()
-    return res
+# 进行文件的下载，远程的下载文件
+@route('/result/<name>')
+def send_static(name):
+    os.system("python zipFile.py")
+    return static_file('/result/'+name, root='./static')
+
 
 run(host='localhost', port=8088, reloader=True, debug=True)
