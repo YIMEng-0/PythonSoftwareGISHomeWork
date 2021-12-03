@@ -5992,7 +5992,7 @@
             ((assign = Dimensions.ratio({width: width, height: height}, 'width', toPx(sizesToPixel(sizes))), width = assign.width, height = assign.height));
         }
 
-        return ("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + width + "\" height=\"" + height + "\"></svg>");
+        return ("data:images/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + width + "\" height=\"" + height + "\"></svg>");
     }
 
     var sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
@@ -10941,7 +10941,7 @@
                             css.transform += " scale(" + value + ")";
                             break;
 
-                        // bg image
+                        // bg images
                         case 'bgy':
                         case 'bgx':
                             css[("background-position-" + (prop[2]))] = "calc(" + pos + " + " + value + "px)";

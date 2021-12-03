@@ -175,7 +175,7 @@ svg:not(:root) {
 /*
  * 1. Fix lazy loading images if parent element is set to `display: inline` and has `overflow: hidden`.
  * 2. Hide `alt` text for lazy loading images.
- * Note: Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ * Note: Selector for background while loading img[data-src*='.jpg'][src*='data:images'] { background: grey; }
  */
 img:not([src]) {
   /* 1 */
@@ -1469,7 +1469,7 @@ button.uk-icon:not(:disabled) {
 /* Input, select and textarea
  * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
             `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
- * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
+ * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `images`
  ========================================================================== */
 /*
  * Remove default style in iOS.
@@ -2391,7 +2391,7 @@ select.uk-form-width-xsmall {
 /* Overlap modifier
  ========================================================================== */
 /*
- * Reserved modifier to make a section overlap another section with an border image
+ * Reserved modifier to make a section overlap another section with an border images
  * Implemented by the theme
  */
 /* ========================================================================
@@ -3774,7 +3774,7 @@ select.uk-form-width-xsmall {
  * 1. Create position context for spinner and close button
  * 2. Dimensions
  * 3. Fix `max-width: 100%` not working in combination with flex and responsive images in IE11
- *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
+ *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-images` in tests
  * 4. Style
  * 5. Slide-in transition
  */
@@ -4031,7 +4031,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * 1. Let items take content dimensions (0 0 auto)
- *    `max-width` needed to keep image responsiveness and prevent content overflow
+ *    `max-width` needed to keep images responsiveness and prevent content overflow
  * 3. Create position context
  * 4. Disable horizontal panning gestures in IE11 and Edge
  */
@@ -6217,8 +6217,8 @@ ul.uk-nav-sub {
  * 3. Color needed for spinner icon
  * 4. Optimize animation
  * 5. Responsiveness
- *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
- *    Using `vh` and `vw` to make responsive image work in IE11
+ *    Using `vh` for `max-height` to fix images proportions after resize in Safari and Opera
+ *    Using `vh` and `vw` to make responsive images work in IE11
  */
 .uk-lightbox-items > * {
   /* 1 */
@@ -7125,7 +7125,7 @@ ul.uk-nav-sub {
   height: 100%;
 }
 /*
- * Useful to create image teasers
+ * Useful to create images teasers
  */
 .uk-height-viewport {
   min-height: 100vh;
@@ -7405,7 +7405,7 @@ td.uk-text-break {
   }
 }
 /*
- * Fix image 1px line wrapping into the next column in Chrome
+ * Fix images 1px line wrapping into the next column in Chrome
  */
 [class*='uk-column-'] img {
   transform: translate3d(0, 0, 0);
@@ -7634,7 +7634,7 @@ iframe.uk-cover {
 /* Attachment
  ========================================================================== */
 /*
- * 1. Fix bug introduced in Chrome 67: the background image is not visible if any element on the page uses `translate3d`
+ * 1. Fix bug introduced in Chrome 67: the background images is not visible if any element on the page uses `translate3d`
  */
 .uk-background-fixed {
   background-attachment: fixed;
@@ -9032,7 +9032,7 @@ iframe.uk-cover {
 }
 /*
  * Scale
- * 1. Make image rendering the same during the transition as before and after. Prefixed because of Safari.
+ * 1. Make images rendering the same during the transition as before and after. Prefixed because of Safari.
  */
 /* 1 */
 [class*='uk-transition-scale'] {

@@ -1,15 +1,6 @@
-import base64
-import zipfile
-
 from bottle import route, run, static_file, template, request
-from bottle import jinja2_view as view, jinja2_template as template
+from bottle import jinja2_template as template
 import os
-import zipFile
-
-from flask import make_response
-
-from jinja2 import Template
-import configparser
 
 """
 bottle 轻量级框架的简单学习，这个框架充当 Web 服务器，协调 代码与前端之间的交互
@@ -39,16 +30,17 @@ def backData():
     upload.save(r'./Spectral_Data')
     return 'ok'
 
-# 将观光谱文件上传到另外一个文件夹中
-@route('/2', method='POST')
-def backData():
-    upload = request.files.get('Observed_Spectral_Data')
-    upload.save(r'./Observed_Spectral_Data')
-    return 'ok'
+# # 将观光谱文件上传到另外一个文件夹中
+# @route('/2', method='POST')
+# def backData():
+#     upload = request.files.get('Observed_Spectral_Data')
+#     upload.save(r'./Observed_Spectral_Data')
+#     return 'ok'
 
 # 这个是和前端的按钮进行的绑定，点击按钮调用后端的 main.py 的脚本文件，进行图片的生成
 @route('/getCalibration', method='POST')
 def getCalibration():
+
     os.system("python main.py")
 
 # 进行文件的下载，远程的下载文件
@@ -56,6 +48,22 @@ def getCalibration():
 def send_static(name):
     os.system("python zipFile.py")
     return static_file('/result/'+name, root='./static')
+
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root='/static/images/1-High Light Intensity.png')
+
+# 进行配置参数的获取
+@route('/obsconfig', method='POST')
+def tem():
+    # 使用数组或者某种存储容器存储表格中传递过来的相关参数
+    # form = 'html' 里面的 name 进行获取
+    forms = {}
+    forms['DingBiao'] = request.forms.get('DingBiao')
+    forms['GuangQian'] = request.forms.get('GuangQian')
+    print(forms)
+
+    return template('templates/光谱仪定标.html')
 
 
 run(host='localhost', port=8088, reloader=True, debug=True)

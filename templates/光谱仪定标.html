@@ -93,13 +93,31 @@
             </div>
 
             <div class="form-group" uk-margin style="text-align: center;">
-                <label for="exampleInputName2">标定轮次 :</label>
-                <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
-                       placeholder="">
+                <form class="uk-form-horizontal" action="/obsconfig" method="post">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form_ftp1">定标轮次</label>
+                        <div class="uk-inline J-modity-input">
+                            <span class="uk-form-icon uk-form-icon-flip"></span>
+                            <input class="uk-input" type="text" id="DingBiaoLunCi" name="DingBiao"
+                            >
+                        </div>
+                    </div>
 
-                <label for="exampleInputName2">光纤数目 :</label>
-                <input style="height: 25px" type="text" class="form-control" id="exampleInputName2"
-                       placeholder="">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form_ftp2">光纤数目</label>
+                        <div class="uk-inline J-modity-input">
+                            <span class="uk-form-icon uk-form-icon-flip"></span>
+                            <input class="uk-input" type="text" id="form_ftp_usrname" name="GuangQian"
+                            >
+                        </div>
+                    </div>
+
+
+                    <p uk-margin style="margin: 45px 0 30px;">
+                        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit">参数输入完毕点击确定
+                        </button>
+                    </p>
+                </form>
             </div>
 
 
@@ -124,9 +142,28 @@
 
 
             <p class="uk-heading-line uk-text-center J-block-title"><span>光谱仪定标结果</span></p>
-            <div>
+            <div class="js-upload uk-placeholder uk-text-center">
                 <!-- 在这里传上去后端处理好的图片 -->
-                <img src="../Middle Light Calibration Difference(Numpy - Myself).png"/>
+                <img id="myImage" src="https://bm.cugb.edu.cn/vis/upload/resources/image/2017/05/25/28332.jpg"/>
+                <button onclick="handle()" class="uk-button uk-button-default" type="button">显示图片1</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle1()" class="uk-button uk-button-default" type="button">显示图片2</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle2()" class="uk-button uk-button-default" type="button">显示图片3</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle3()" class="uk-button uk-button-default" type="button">显示图片4</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle4()" class="uk-button uk-button-default" type="button">显示图片5</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle5()" class="uk-button uk-button-default" type="button">显示图片6</button>
+
+                <img id="myImage" src=""/>
+                <button onclick="handle6()" class="uk-button uk-button-default" type="button">显示图片7</button>
             </div>
 
         </div>
@@ -201,10 +238,45 @@
             }
 
             const commodity_image = document.createElement("img");
-            let imageURL = "/image?skuid=" + r[j]["skuid"];
+            let imageURL = "/images?skuid=" + r[j]["skuid"];
             commodity_image.src = imageURL;
         </script>
 
         </script>
+
+        <script>
+            function handle() {
+                document.getElementById('myImage').src = 'https://wx2.sinaimg.cn/mw2000/0071KLW1ly1gx0citc73pj36y04moe84.jpg';
+            }
+
+            function handle1() {
+                document.getElementById('myImage').src = 'https://wx2.sinaimg.cn/mw2000/0071KLW1ly1gx0civjj8pj36y04mo1l0.jpg';
+            }
+
+            function handle2() {
+                document.getElementById('myImage').src = 'https://wx3.sinaimg.cn/mw2000/0071KLW1ly1gx0cixoxrnj36y04mob2c.jpg';
+            }
+
+            function handle3() {
+                document.getElementById('myImage').src = 'https://wx1.sinaimg.cn/mw2000/0071KLW1ly1gx0ciztf20j36y04mohdw.jpg';
+            }
+
+            function handle4() {
+                document.getElementById('myImage').src = 'https://wx3.sinaimg.cn/mw2000/0071KLW1ly1gx0cj1xf29j36y04mohdw.jpg';
+            }
+
+            function handle5() {
+                document.getElementById('myImage').src = 'https://wx1.sinaimg.cn/mw2000/0071KLW1ly1gx0cj3v8g6j36y04moqv6.jpg';
+            }
+
+            function handle6() {
+                document.getElementById('myImage').src = 'https://wx4.sinaimg.cn/mw2000/0071KLW1ly1gx0cj5vcijj36y04mohdw.jpg';
+            }
+
+        </script>
+
+        <srcript>
+
+        </srcript>
     </body>
 </html>
